@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% block title %}Nos services - Boutique{% endblock %}
+{% block content %}
+<section class="hero">
+    <h2>Nos Services</h2>
+    <p>Livraison rapide, assistance 24/7, retours faciles.</p>
+</section>
+{% for couleur in liste %}
+            <h1 style="background : {{couleur}}">bonjours </h1>
+{%endfor %}
+
+
+<section class="container section" ">
+    <div class="info-grid">
+        <div class="info-card">
+            <h3>Livraison rapide</h3>
+            <p>Expédition sous 24h partout dans le monde.</p>
+        </div>
+        <div class="info-card">
+            <h3>Assistance 24/7</h3>
+            <p>Une équipe disponible à tout moment.</p>
+        </div>
+        <div class="info-card">
+            <h3>Retours faciles</h3>
+            <p>30 jours pour changer d'avis, sans frais.</p>
+        </div>
+    </div>
+</section>
+{% endblock %}

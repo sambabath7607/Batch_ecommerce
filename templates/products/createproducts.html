@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% block title %}Créer un produit - Boutique{% endblock %}
+{% block content %}
+<div class="auth-container">
+    <div class="form-card">
+        <h1>Créer votre produit</h1>
+        <p class="form-subtitle">Ajoutez un nouveau produit à la boutique.</p>
+        <form action="" method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <div class="form-actions">
+                <button class="btn btn-primary" type="submit">Créer le produit</button>
+                <a class="btn btn-secondary" href="{% url 'liste_cbv' %}">Annuler</a>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}

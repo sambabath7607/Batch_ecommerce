@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% block title %}Modifier un produit - Boutique{% endblock %}
+{% block content %}
+<div class="auth-container">
+    <div class="form-card">
+        <h1>Modifier votre produit</h1>
+        <p class="form-subtitle">Mettez à jour les informations du produit.</p>
+        <form action="" method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <div class="form-actions">
+                <button class="btn btn-primary" type="submit">Enregistrer</button>
+                <a class="btn btn-secondary" href="{% url 'liste_cbv' %}">Annuler</a>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% block title %}Connexion - Boutique{% endblock %}
+{% block content %}
+<div class="auth-container">
+    <div class="form-card">
+        <h1>Connexion</h1>
+        <p class="form-subtitle">Accédez à votre compte.</p>
+        <form action="" method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <div class="form-actions">
+                <button class="btn btn-primary" type="submit">Se connecter</button>
+            </div>
+        </form>
+        <p class="form-note">
+            Pas encore de compte ? <a href="{% url 'signup' %}">S'inscrire</a>
+        </p>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% block title %}Supprimer un produit - Boutique{% endblock %}
+{% block content %}
+<div class="delete-box">
+    <div class="form-card">
+        <h1>Supprimer le produit</h1>
+        <p>Êtes-vous sûr de vouloir supprimer « {{ object.name }} » ?</p>
+        <form action="" method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <div class="form-actions">
+                <button class="btn btn-danger" type="submit">Oui, supprimer</button>
+                <a class="btn btn-secondary" href="{% url 'liste_cbv' %}">Annuler</a>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}

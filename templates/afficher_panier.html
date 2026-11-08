@@ -1,0 +1,56 @@
+{% extends "base.html" %}
+{% block title %}Mon panier - Boutique{% endblock %}
+{% block content %}
+    <section class="page-header">
+        <h1>Mon panier</h1>
+        <p>Récapitulatif de vos articles</p>
+    </section>
+
+    <section class="container section">
+        {% if panier %}
+            <div class="table-wrap">
+                <table class="cart-table">
+                    <thead>
+                        <tr>
+                            <th>Produit</th>
+                            <th>Prix</th>
+                            <th>Quantité</th>
+                            <th class="cart-actions-col">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for cle, values in panier.items %}
+                            <tr>
+                                <td class="cart-product">
+                                    <span class="cart-product-name">{{ values.name }}</span>
+                                </td>
+                                <td class="cart-price">{{ values.price }}$</td>
+                                <td>
+                                    <form class="qty-form" action="{% url 'modifier_quantite' pk=cle %}" method="post">
+                                        {% csrf_token %}
+                                        <button class="qty-btn" type="submit" name="moins" value="moins">&#8722;</button>
+                                        <span class="qty-value">{{ values.quantite }}</span>
+                                        <button class="qty-btn" type="submit" name="plus" value="plus">&#43;</button>
+                                    </form>
+                                </td>
+                                <td class="cart-actions">
+                                    <a class="btn btn-danger btn-sm" href="{% url 'suprimer_product' pk=cle %}">Supprimer</a>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="cart-footer">
+                <a class="btn btn-secondary" href="{% url 'suprimer_panier' %}">Vider le panier</a>
+                <a class="btn btn-primary" href="{% url 'accueil' %}">Continuer mes achats</a>
+            </div>
+        {% else %}
+            <div class="empty-state">
+                <p>Votre panier est vide.</p>
+                <a class="btn btn-primary" href="{% url 'accueil' %}">Découvrir nos produits</a>
+            </div>
+        {% endif %}
+    </section>
+{% endblock %}

@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+{% block title %}Commande - Boutique{% endblock %}
+{% block content %}
+    <section class="page-header">
+        <h1>Commande</h1>
+        <p>Récapitulatif de votre commande</p>
+    </section>
+
+    <section class="container section">
+        <div class="detail-card">
+            <div class="detail-body">
+                <h1>Commande</h1>
+                <p class="detail-content">{{ commande }}</p>
+
+                {% for ele in commande_items %}
+                    <div class="detail-meta">
+                        <p><strong>Produit :</strong> {{ ele.product.name }}</p>
+                        <p><strong>Prix :</strong> <span class="detail-price">{{ ele.price }}$</span></p>
+                        <p><strong>Quantité :</strong> {{ ele.quantite }}</p>
+                    </div>
+                <div class="detail-meta">
+                    <p>{{commande.total}} $</p>
+                        </div>
+
+                {% empty %}
+                    <p class="detail-content">Aucun article dans cette commande.</p>
+                {% endfor %}
+
+                <div class="detail-actions">
+                    <a class="btn btn-secondary" href="{% url 'afficher_panier_db' %}">Aller au panier</a>
+                    <a class="btn btn-secondary" style="position : right; " href="#">Payer</a>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}

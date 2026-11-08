@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% block title %}Historique des commandes - Boutique{% endblock %}
+{% block content %}
+    <section class="page-header">
+        <h1>Historique des commandes</h1>
+        <p>{{ commande_items }}</p>
+    </section>
+
+    <section class="container section">
+        <div class="info-grid">
+            {% for ele in commande %}
+                <div class="info-card">
+                    <h3>{{ ele.product.name }}</h3>
+                    <p><strong>Date :</strong> {{ ele.created_at }}</p>
+                    <p><strong>Statut :</strong> {{ ele.statut }}</p>
+                    <p><strong>Total :</strong> <span class="detail-price">{{ ele.total }}$</span></p>
+                </div>
+            {% empty %}
+                <div class="empty-state">
+                    <p>Aucune commande enregistrée.</p>
+                </div>
+            {% endfor %}
+        </div>
+    </section>
+{% endblock %}

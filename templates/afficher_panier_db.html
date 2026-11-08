@@ -1,0 +1,70 @@
+{% extends "base.html" %}
+{% block title %}Mon panier - Boutique{% endblock %}
+{% block content %}
+    <section class="page-header">
+        <h1>Mon panier   basee  sur model </h1>
+        <p>Récapitulatif de vos articles</p>
+    </section>
+
+    <section class="container section">
+        {% if panier %}
+            <div class="table-wrap">
+                <table class="cart-table">
+                     <thead>
+                        <tr>
+                            <th>Produit</th>
+                            <th>Prix</th>
+                            <th>Quantité</th>
+                            <th>ordered</th>
+                            <th>detail du produit</th>
+
+                            <th class="cart-actions-col">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for  values in panier_items %}
+                            <tr>
+                                <td class="cart-product">
+                                    <span class="cart-product-name">{{ values.product.name }}</span>
+                                </td>
+                                <td class="cart-price">{{ values.product.price }}$</td>
+                                <td>
+                                    <form class="qty-form" action="{% url 'modifier_quantite_db' pk=values.pk %}" method="post">
+                                        {% csrf_token %}
+                                        <button class="qty-btn" type="submit" name="moins" value="moins">&#8722;</button>
+                                        <span class="qty-value">{{ values.quantite }}</span>
+                                        <button class="qty-btn" type="submit" name="plus" value="plus">&#43;</button>
+                                    </form>
+                                </td>
+                                <td>
+                                    <form action="" method="post">
+                                         {% csrf_token %}
+                                        <button type="submit" name ="commander">_/</button>
+                                    </form>
+                                </td>
+
+                                <td class="cart-actions">
+                                    <a class="btn btn-danger btn-sm" href="{% url 'detail_cbv' pk=values.product.pk %}">Detail</a>
+                                </td>
+                                <td class="cart-actions">
+                                    <a class="btn btn-danger btn-sm" href="{% url 'supremer_product_db' pk=values.pk %}">Supprimer</a>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>h
+            </div>
+
+            <div class="cart-footer">
+                <a class="btn btn-secondary" href="{% url 'suprimer_panier' %}">Vider le panier</a>
+                <a class="btn btn-primary" href="{% url 'accueil' %}">Continuer mes achats</a>
+                <a class="btn btn-primary" href="{% url 'commande' %}">commander</a>
+            </div>
+        {% else %}
+            <div class="empty-state">
+                <p>Votre panier est vide.</p>
+                <a class="btn btn-primary" href="{% url 'accueil' %}">Découvrir nos produits</a>
+            </div>
+        {% endif %}
+    </section>
+{% endblock %}

@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% block title %}Ma boutique - Produits{% endblock %}
+{% block content %}
+<section class="page-header">
+    <div class="container">
+        <h1 style="color : pink;">{{user.username|upper}} : vous etes connecte </h1>
+
+        <p>Découvrez tous les produits.</p>
+    </div>
+</section>
+
+<section class="container section">
+
+        {% if user.is_authenticated %}
+        <div class="form-actions" style="margin-bottom: 24px;">
+            <a class="btn btn-primary" href="{% url 'create_cbv' %}">Créer votre produit</a>
+        </div>
+        {% endif %}
+
+
+    <div class="product-grid">
+        {% for obj in page_obj %}
+            {% include "products/_product_card.html" %}
+        {% empty %}
+            <p class="empty-state">Aucun produit disponible.</p>
+        {% endfor %}
+    </div>
+</section>
+
+{% endblock %}

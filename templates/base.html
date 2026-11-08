@@ -1,0 +1,61 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{% block title %}Boutique - E-commerce{% endblock %}</title>
+    <link rel="stylesheet" href="{% static 'style.css' %}">
+</head>
+
+<body>
+
+    <!-- NAVBAR -->
+    <header>
+        <div class="navbar">
+            <a class="logo" href="{% url 'accueil' %}">Shop</a>
+            <nav>
+                <ul class="nav-links">
+                    <li><a href="{% url 'accueil' %}">Accueil</a></li>
+                    {% if  user.is_authenticated %}
+                    <li><a href="{% url 'liste_cbv' %}">Ma boutique</a></li>
+                    {% endif %}
+                    <li><a href="{% url 'service' %}">Services</a></li>
+                    <li><a href="{% url 'a_propos' %}">À propos</a></li>
+                    <li><a href="{% url 'contact' %}">Contact</a></li>
+                    {% if not user.is_authenticated %}
+                        <li><a href="{% url 'login' %}">Connexion</a></li>
+                        <li><a class="btn btn-light" href="{% url 'signup' %}">S'inscrire</a></li>
+                    {% else %}
+                        <li>
+                            <form class="logout-form" action="{% url 'logout' %}" method="post">
+                                {% csrf_token %}
+                                <button class="btn btn-light" type="submit">Déconnexion</button>
+                            </form>
+                        </li>
+                    {% endif %}
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        {% if messages %}
+            <div class="messages">
+                {% for message in messages %}
+                    <div class="alert alert-{{ message.tags }}">{{ message }}</div>
+                {% endfor %}
+            </div>
+        {% endif %}
+
+        {% block content %}
+        {% endblock %}
+    </main>
+
+    <!-- FOOTER -->
+    <footer>
+        <p>&copy; 2026 - Ma Boutique | Tous droits réservés</p>
+    </footer>
+
+</body>
+</html>

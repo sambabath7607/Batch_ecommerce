@@ -1,0 +1,43 @@
+<article class="product-card">
+    {% if obj.img %}
+        <img src="{{ obj.img.url }}" alt="{{ obj.name }}">
+    {% endif %}
+    <div class="product-body">
+        <h2 class="product-name">{{ obj.name }}</h2>
+        <!--p class="product-content">{{ obj.content|truncatewords:20 }}</p-->
+        <p class="product-price">{{ obj.price }} $</p>
+        <p class="product-meta">Catégorie : {{ obj.category }}</p>
+        <p class="product-meta">stock : {{ obj.stock }}</p>
+        <!--p class="product-meta">Ajouté le : {{ obj.date|date:"d/m/Y" }}</p-->
+        <div class="product-actions">
+            <a class="btn btn-primary" href="{% url 'detail_cbv' obj.pk %}">Voir le détail</a>
+            {% if manage_products %}
+                <a class="btn btn-secondary" href="{% url 'update_cbv' obj.pk %}">Modifier</a>
+                <a class="btn btn-danger" href="{% url 'delete_cbv' obj.pk %}">Supprimer</a>
+
+            {% endif %}
+            <a class="btn btn-primary" href="{% url 'ajouter_panier' obj.pk %}">AJOUTER_PANIER</a>
+            {%  if user.is_authenticated %}
+            <a class="btn btn-primary" href="{% url 'ajouter_panier_db' obj.pk %}">AJOUTER_PANIER_db</a>
+            {% endif %}
+        </div>
+
+
+    </div>
+    {% if is_paginated %}
+        <nav class="pagination">
+            {% if obj.has_previous %}
+                <a class="pagination-btn" href="?page={{ obj.previous_page_number }}">&#10094; Précédente</a>
+            {% endif %}
+
+            <span class="pagination-info">Page {{ obj.number }} / {{ paginator.num_pages }}</span>
+
+            {% if obj.has_next %}
+                <a class="pagination-btn" href="?page={{ obj.next_page_number }}">Suivante &#10095;</a>
+            {% endif %}
+        </nav>
+        {% endif %}
+
+</article>
+
+

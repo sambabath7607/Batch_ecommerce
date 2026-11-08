@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+{% block title %}{{ obj.name }} - Ma Boutique{% endblock %}
+{% block content %}
+<section class="page-header">
+    <div class="container">
+        <h1>Détail du produit</h1>
+        <p>{{ obj.name }}</p>
+    </div>
+</section>
+
+<section class="container">
+    <div class="detail-card">
+        <div class="detail-image">
+            {% if obj.img %}
+                <img src="{{ obj.img.url }}" alt="{{ obj.name }}">
+            {% else %}
+                <span class="detail-placeholder"></span>
+            {% endif %}
+        </div>
+        <div class="detail-body">
+            <h1>{{ obj.name }}</h1>
+            <p class="detail-content">{{ obj.content }}</p>
+            <div class="detail-price">{{ obj.price }} $</div>
+            <div class="detail-meta">
+                <p>Référence : #{{ obj.pk }}</p>
+                <p>Catégorie : {{ obj.category }}</p>
+                <p>Ajouté le : {{ obj.date|date:"d/m/Y" }}</p>
+            </div>
+            <div class="detail-actions">
+                <a class="btn btn-secondary" href="{% url 'liste_cbv' %}">Retour à la liste</a>
+                <a class="btn btn-primary" href="{% url 'update_cbv' obj.pk %}">Modifier</a>
+
+                <a class="btn btn-secondary" href="{% url 'afficher_panier_db'  %}">retouner au panier</a>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
